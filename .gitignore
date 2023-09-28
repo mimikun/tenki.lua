@@ -4,3 +4,4 @@
 *.patch.gpg
 node_modules
 .textlintcache
+vendor/plenary.nvim

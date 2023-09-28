@@ -47,7 +47,7 @@ copy2win-patch-gpg :
 copy2win-patch : copy2win-patch-raw
 
 .PHONY : test
-test : lint
+test : plugin-test
 
 .PHONY : lint
 lint : stylua-lint textlint typo-check
@@ -63,6 +63,16 @@ textlint :
 .PHONY : typo-check
 typo-check :
 	typos .
+
+TESTS_INIT=tests/minimal_init.lua
+TESTS_DIR=tests/
+.PHONY : plugin-test
+plugin-test :
+	@nvim \
+		--headless \
+		--noplugin \
+		-u ${TESTS_INIT} \
+		-c "PlenaryBustedDirectory ${TESTS_DIR} { minimal_init = '${TESTS_INIT}' }"
 
 .PHONY : fmt
 fmt : format
